@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Maps - GMT 458 Web GIS</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- OpenLayers CSS -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/ol@10.6.1/ol.css">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <style>
+
+        #map {
+            width: 100%;
+            height: 500px;
+        }
+
+        #leaflet-map {
+            width: 100%;
+            height: 500px;
+            margin-top: 30px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <h1>Web GIS Maps</h1>
+
+
+   
+    <!-- OPENLAYERS MAP             -->
+    
+
+    <h2>OpenLayers Map</h2>
+
+    <div id="map"></div>
+
+
+    <!-- OpenLayers JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/ol@10.6.1/dist/ol.js"></script>
+
+    <script>
+
+        // Marker locations around Ankara
+        const locations = [
+            [32.734, 39.866],
+            [32.750, 39.870],
+            [32.720, 39.850],
+            [32.770, 39.880],
+            [32.700, 39.840]
+        ];
+
+
+        // Create marker features
+        const markerFeatures = locations.map(function(location) {
+
+            return new ol.Feature({
+                geometry: new ol.geom.Point(
+                    ol.proj.fromLonLat(location)
+                )
+            });
+
+        });
+
+
+        // Marker style
+        const markerStyle = new ol.style.Style({
+
+            image: new ol.style.Circle({
+
+                radius: 7,
+
+                fill: new ol.style.Fill({
+                    color: 'red'
+                }),
+
+                stroke: new ol.style.Stroke({
+                    color: 'white',
+                    width: 2
+                })
+
+            })
+
+        });
+
+
+        // Vector layer containing markers
+        const markerLayer = new ol.layer.Vector({
+
+            source: new ol.source.Vector({
+                features: markerFeatures
+            }),
+
+            style: markerStyle,
+
+            // Markers are initially hidden
+            visible: false
+
+        });
+
+
+        // OpenLayers map
+        const map = new ol.Map({
+
+            target: 'map',
+
+            layers: [
+
+                new ol.layer.Tile({
+
+                    source: new ol.source.XYZ({
+
+                        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+
+                        wrapX: false
+
+                    })
+
+                }),
+
+                markerLayer
+
+            ],
+
+            view: new ol.View({
+
+                center: ol.proj.fromLonLat([32.734, 39.866]),
+
+                zoom: 12,
+
+                multiWorld: false
+
+            })
+
+        });
+
+
+        // Show markers when zoom level is 14 or higher
+        map.getView().on('change:resolution', function() {
+
+            const zoom = map.getView().getZoom();
+
+            if (zoom >= 14) {
+
+                markerLayer.setVisible(true);
+
+            } else {
+
+                markerLayer.setVisible(false);
+
+            }
+
+        });
+
+
+    </script>
+
+
+
+
+    <!-- LEAFLET MAP                -->
+
+
+    <h2>Leaflet Map</h2>
+
+    <div id="leaflet-map"></div>
+
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+
+        // Create Leaflet map
+        const leafletMap = L.map('leaflet-map').setView(
+            [39.866, 32.734],
+            12
+        );
+
+
+        // ArcGIS base map for Leaflet
+        L.tileLayer(
+            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+            {
+                attribution: '&copy; Esri',
+                maxZoom: 19,
+                noWrap: true
+            }
+        ).addTo(leafletMap);
+
+
+        // Leaflet marker
+        L.marker([39.866, 32.734])
+            .addTo(leafletMap)
+            .bindPopup('Ankara');
+
+
+    </script>
+
+
+    <!-- Back to homepage -->
+    <p>
+        <a href="index.html">Ana Sayfaya Dön</a>
+    </p>
+
+
+</body>
+
+</html>
+
