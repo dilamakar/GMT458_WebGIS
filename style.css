@@ -42,4 +42,98 @@ a:hover {
         opacity: 1;
         transform: translateY(0);
     }
+} 
+
+/* Homepage design */
+
+.home-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.welcome-section {
+    background: white;
+    padding: 50px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.course-title {
+    color: #2f6f7e;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.welcome-section h1 {
+    font-size: 48px;
+    margin: 10px 0;
+    color: #164e63;
+}
+
+.welcome-section h2 {
+    font-size: 22px;
+    font-weight: normal;
+    color: #52727d;
+    margin-bottom: 25px;
+}
+
+.intro-text {
+    max-width: 750px;
+    margin: 15px auto;
+    color: #444;
+}
+
+.navigation-section {
+    text-align: center;
+}
+
+.navigation-section h2 {
+    margin-bottom: 25px;
+}
+
+.navigation-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.nav-card {
+    background: white;
+    width: 250px;
+    min-height: 150px;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-card span {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.nav-card strong {
+    font-size: 20px;
+    color: #1769aa;
+    margin-bottom: 8px;
+}
+
+.nav-card small {
+    color: #666;
+    line-height: 1.5;
+}
+
+.nav-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
 }
